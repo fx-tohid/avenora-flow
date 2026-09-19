@@ -10,6 +10,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.fxtohid.avenorflow",
       "adaptiveIcon": {
         "backgroundColor": "#0E1016",
         "foregroundImage": "./assets/android-icon-foreground.png",
