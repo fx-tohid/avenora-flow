@@ -2,13 +2,14 @@ import React from 'react';
 import { Platform, Pressable, Text, View } from 'react-native';
 import { space, useTheme } from './theme';
 
-export type TabKey = 'home' | 'tasks' | 'stats' | 'achievements' | 'settings';
+export type TabKey = 'home' | 'tasks' | 'stats' | 'achievements' | 'teams' | 'settings';
 
 export const TABS: { key: TabKey; label: string; icon: string }[] = [
   { key: 'home', label: 'Home', icon: '🏠' },
   { key: 'tasks', label: 'Tasks', icon: '📋' },
   { key: 'stats', label: 'Stats', icon: '📊' },
   { key: 'achievements', label: 'Awards', icon: '🏆' },
+  { key: 'teams', label: 'Teams', icon: '⚔️' },
   { key: 'settings', label: 'Settings', icon: '⚙️' },
 ];
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Platform, StatusBar as RNStatusBar, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { GameProvider, useGame } from './src/state/GameContext';
+import { AuthProvider } from './src/state/AuthContext';
 import { useTheme } from './src/ui/theme';
 import { Loading } from './src/ui/components';
 import { TabBar, type TabKey } from './src/ui/TabBar';
@@ -9,6 +10,7 @@ import { HomeScreen } from './src/screens/HomeScreen';
 import { TasksScreen } from './src/screens/TasksScreen';
 import { StatsScreen } from './src/screens/StatsScreen';
 import { AchievementsScreen } from './src/screens/AchievementsScreen';
+import { TeamsScreen } from './src/screens/TeamsScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
 import { HistoryScreen } from './src/screens/HistoryScreen';
 import { TaskFormModal } from './src/screens/TaskFormModal';
@@ -19,7 +21,9 @@ import { newId } from './src/data/defaults';
 export default function App() {
   return (
     <GameProvider>
-      <AppShell />
+      <AuthProvider>
+        <AppShell />
+      </AuthProvider>
     </GameProvider>
   );
 }
@@ -70,6 +74,7 @@ function AppShell() {
         {tab === 'tasks' ? <TasksScreen onAddTask={openNewTask} onEditTask={openEditTask} /> : null}
         {tab === 'stats' ? <StatsScreen onOpenHistory={() => setHistoryOpen(true)} /> : null}
         {tab === 'achievements' ? <AchievementsScreen /> : null}
+        {tab === 'teams' ? <TeamsScreen /> : null}
         {tab === 'settings' ? <SettingsScreen /> : null}
       </View>
 
