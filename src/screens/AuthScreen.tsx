@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ActivityIndicator, ScrollView, Text, TextInput, View } from 'react-native';
+import { isSupabaseConfigured } from '../data/supabase';
 import { useAuth } from '../state/AuthContext';
 import { Button, Card } from '../ui/components';
 import { radius, space, useTheme } from '../ui/theme';
@@ -23,6 +24,10 @@ export function AuthScreen() {
   async function submit() {
     setError(null);
 
+    if (!isSupabaseConfigured) {
+      setError('Teams is not set up in this build (Supabase settings are missing).');
+      return;
+    }
     if (!email.trim() || !password) {
       setError('Enter an email and password.');
       return;

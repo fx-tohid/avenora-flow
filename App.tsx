@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Platform, StatusBar as RNStatusBar, View } from 'react-native';
+import { View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { GameProvider, useGame } from './src/state/GameContext';
 import { AuthProvider } from './src/state/AuthContext';
 import { useTheme } from './src/ui/theme';
@@ -20,11 +21,13 @@ import { newId } from './src/data/defaults';
 
 export default function App() {
   return (
-    <GameProvider>
-      <AuthProvider>
-        <AppShell />
-      </AuthProvider>
-    </GameProvider>
+    <SafeAreaProvider>
+      <GameProvider>
+        <AuthProvider>
+          <AppShell />
+        </AuthProvider>
+      </GameProvider>
+    </SafeAreaProvider>
   );
 }
 
@@ -34,6 +37,7 @@ export default function App() {
  */
 function AppShell() {
   const t = useTheme();
+  const insets = useSafeAreaInsets();
   const { loading, levelUp, dismissLevelUp, unlockedNotice, dismissUnlocked } = useGame();
 
   const [tab, setTab] = useState<TabKey>('home');
@@ -59,7 +63,7 @@ function AppShell() {
       style={{
         flex: 1,
         backgroundColor: t.bg,
-        paddingTop: Platform.OS === 'android' ? RNStatusBar.currentHeight ?? 0 : 44,
+        paddingTop: insets.top,
       }}
     >
       <StatusBar style={t.dark ? 'light' : 'dark'} />

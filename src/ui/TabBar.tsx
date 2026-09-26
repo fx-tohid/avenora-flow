@@ -1,5 +1,6 @@
 import React from 'react';
-import { Platform, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { space, useTheme } from './theme';
 
 export type TabKey = 'home' | 'tasks' | 'stats' | 'achievements' | 'teams' | 'settings';
@@ -16,6 +17,8 @@ export const TABS: { key: TabKey; label: string; icon: string }[] = [
 /** A plain bottom tab bar — no navigation library needed for five screens. */
 export function TabBar({ active, onChange }: { active: TabKey; onChange: (key: TabKey) => void }) {
   const t = useTheme();
+  // Keep the tabs clear of the phone's navigation bar / home indicator.
+  const insets = useSafeAreaInsets();
   return (
     <View
       style={{
@@ -24,7 +27,7 @@ export function TabBar({ active, onChange }: { active: TabKey; onChange: (key: T
         borderTopWidth: 1,
         borderTopColor: t.border,
         paddingTop: space.sm,
-        paddingBottom: Platform.OS === 'ios' ? space.xl : space.md,
+        paddingBottom: space.md + insets.bottom,
       }}
     >
       {TABS.map((tab) => {
